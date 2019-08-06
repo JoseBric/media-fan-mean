@@ -1,0 +1,34 @@
+{
+  "name": "media-fan-mean",
+  "version": "1.0.0",
+  "description": "Social media created with MEAN stack",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "watch": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseBric/media-fan-mean.git"
+  },
+  "keywords": [
+    "MEAN"
+  ],
+  "dependencies": {
+    "bcryptjs": "*",
+    "cors": "*",
+    "dotenv": "^8.0.0",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "*"
+  },
+  "author": "josebric",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoseBric/media-fan-mean/issues"
+  },
+  "homepage": "https://github.com/JoseBric/media-fan-mean#readme"
+}
