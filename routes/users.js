@@ -35,13 +35,14 @@ router.post('/login', async (req, res, next) => {
   // Loging In
   const token = jwt.sign({data: user}, env.SECRET, { expiresIn: 60 * 60 * 24 * 7})
 
+
   // Response with user info and token
   res.json({
     success: true,
     token: `Bearer ${token}`,
     user: {
       id: user._id,
-      username: username,
+      username: user.username,
       email: user.email,
     },
   })
