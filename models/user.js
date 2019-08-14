@@ -3,10 +3,6 @@ const Schema = mongoose.Schema
 const env = require('dotenv').config().parsed
 
 const FollowSchema = Schema({
-  user_id: {
-    type: Schema.ObjectId,
-    required: true,
-  },
   username: {
     type: String,
     required: true,
