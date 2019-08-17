@@ -12,16 +12,20 @@ const env = require('dotenv').config().parsed
 // @route  POST users/signup
 // @desc   Create An User
 // @acces  Public
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async (req, res, next) => {
   const {email, username, password} = req.body
   const hashedPassword = hashPassword(password)
 
-  const newUser = new User({email, username, password: hashedPassword, following: [], followers: [], profile_photo: ''})
+  const available = await usernameAvailable(username)
+  if(available) {
+    const newUser = new User({email, username, password: hashedPassword, following: [], followers: [], profile_photo: ''})
+  
+    newUser.save((err, user) => {
+      if(err) res.json({success: false, msg: 'Failed to register user'})
+      else res.json({success: true, msg: 'User registered'})
+    })
+  } else res.json({success:false, msg: 'Username not available'})
 
-  newUser.save((err, user) => {
-    if(err) res.json({success: false, msg: 'Failed to register user'})
-    else res.json({success: true, msg: 'User registered'})
-  })
 })
 
 // @route  POST users/login
@@ -130,6 +134,10 @@ router.put('/unfollow/:username', passport.authenticate('jwt', {session:false}) 
   })
 })
 
+
+// @route  PUT users/updateEmail/:username
+// @desc   Change email
+// @acces  Authenticated
 router.put('/updateEmail/:username', passport.authenticate('jwt', {session:false}) ,(req, res, next) => {
   const {username} = req.params
   const {email} = req.body
@@ -138,13 +146,21 @@ router.put('/updateEmail/:username', passport.authenticate('jwt', {session:false
   .catch(err => res.json({success:false, msg: err}))
 })
 
-router.get('/usernameAvailable/:username', () => {
+// @route  GET users/usernameAvailable/:username
+// @desc   Check username availability email
+// @acces  Public
+router.get('/usernameAvailable/:username', async (req, res, next) => {
   const {username} = req.params
-  User.findOne({username})
-  .then(user => res.json({available: true}))
-  .catch(err => res.json({available: false}))
+  const available = await usernameAvailable(username)
+  if(available) res.json({available: true})
+  else res.json({available: false})
 })
 
+async function usernameAvailable(username) {
+  const user = await User.findOne({username})
+  if(user) return false
+  return true
+}
 
 function hashPassword (password) {
   const rounds = 10
