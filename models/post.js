@@ -40,7 +40,7 @@ const PostSchema = mongoose.Schema({
     required: true,
     type: String,
   },
-  starts: {
+  stars: {
     required: true,
     type: Number,
     default: 0,
