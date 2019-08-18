@@ -34,7 +34,7 @@ const PostSchema = mongoose.Schema({
   },
   content: {
     required: true,
-    type: String,
+    type: Object,
   },
   author: {
     required: true,
