@@ -9,6 +9,15 @@ const User = require('../models/user')
 
 const env = require('dotenv').config().parsed
 
+// @route  GET users/
+// @desc   Get all users
+// @acces  Public
+router.get('/', async (req, res, next) => {
+  const users = await User.find()
+  if(users) res.json({users, success:true})
+  else res.json({success:false})
+})
+
 // @route  POST users/signup
 // @desc   Create An User
 // @acces  Public
@@ -73,7 +82,7 @@ router.get('/profile/:username', passport.authenticate('jwt', {session:false}) ,
 // @acces  Authenticated
 router.put('/follow/:username', passport.authenticate('jwt', {session:false}) ,async (req, res, next) => {
   const {username} = req.params
-  const {_id} = req.body
+  const {_id} = req.user
 
   // Get both users. Followed and follower
   try {

@@ -38,11 +38,17 @@ const PostSchema = mongoose.Schema({
   },
   author: {
     required: true,
-    type: String,
+    type: {
+      username: String,
+      profile_photo: {
+        required: false,
+        type: String,
+      },
+    }
   },
   stars: {
     required: true,
-    type: Number,
+    type: [String],
     default: 0,
   },
   date: {

@@ -14,7 +14,7 @@ const env = require('dotenv').config().parsed
 // @acces  Public
 router.get('/', (req, res, next) => {
   Post.find().sort({'date': -1}).limit(9)
-  .then(post => res.json({success: true, post}))
+  .then(posts => res.json({success: true, posts}))
   .catch(err => res.json({success: false}))
 })
 
@@ -22,13 +22,12 @@ router.get('/', (req, res, next) => {
 // @desc   Create A Post
 // @acces  Authenticated
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  console.log(req.body)
-  const {title, content, author} = req.body
-  if(title == '' || content == '' || author == '') return res.json({success: false})
+  const {title, content} = req.body
+  if(title == '' || content == '') return res.json({success: false})
   const post = {
     title,
     content,
-    author,
+    author: req.user.username,
   }
   Post.create(post)
     .then(post => {res.json({success:true, post})})
@@ -46,4 +45,17 @@ router.post('/uploadImage', passport.authenticate('jwt', {session: false}), (req
   })
 })
 
+// @route  GET get/:username
+// @desc   Get Someones Feed
+// @acces  Authenticated
+router.get('/feed', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  let following = []
+  req.user.following.forEach(element => {
+    following.push(element.username)
+  });
+  Post.find({'author': {$in: following}})
+  .sort({'date': -1}).limit(9)
+  .then(posts => res.json({success: true, posts}))
+  .catch(err => res.json({success: false}))
+})
 module.exports = router
