@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+// const request = require('request')
 
 const Post = require('../models/post')
 const upload = require('../services/fileUpload')
@@ -22,27 +23,45 @@ router.get('/', (req, res, next) => {
 // @desc   Create A Post
 // @acces  Authenticated
 router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  const {title, content} = req.body
-  if(title == '' || content == '') return res.json({success: false})
+  const {content} = req.body
+  if(content == '') return res.json({success: false})
   const post = {
-    title,
     content,
     author: req.user.username,
   }
   Post.create(post)
     .then(post => {res.json({success:true, post})})
-    .catch(err => res.json({success:false}))
+    .catch(err => res.json({success: false}))
 })
 
-// @route  GET posts/signup
+// @route  GET posts/uploadImage
 // @desc   Upload Image to AWS S3
 // @acces  Authenticated
 router.post('/uploadImage', passport.authenticate('jwt', {session: false}), (req, res, next) => {
   singleUpload(req, res, (err) => {
+    console.log(req)
     const key = req.file.key
     if(err) return res.json({success: err})
-    res.json({url: req.file.location, success: true})
+    res.json({file: {url: req.file.location}, success: true})
   })
+})
+
+// @route  GET posts/uploadImageUrl
+// @desc   Upload Image with URL to AWS S3
+// @acces  Authenticated
+router.post('/uploadImageUrl', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  request({uri: req.body.url, encoding: null}, (err, response, body) => {
+    if(err || response.statusCode !== 200) {
+      return res.json({success: false})
+    } 
+    console.log(body)
+    // s3.putObject({
+    //   Body: body,
+    //   Key: uniqueId().,
+    // })
+  })
+    if(err) return res.json({success: err})
+    res.json({file: req.file.location, success: true})
 })
 
 // @route  GET get/:username

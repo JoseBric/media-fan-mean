@@ -28,10 +28,6 @@ const CommentSchema = mongoose.Schema({
 })
 
 const PostSchema = mongoose.Schema({
-  title: {
-    required: true,
-    type: String,
-  },
   content: {
     required: true,
     type: Object,
