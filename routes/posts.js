@@ -27,7 +27,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res, next
   if(content == '') return res.json({success: false})
   const post = {
     content,
-    author: req.user.username,
+    author: {
+      username: req.user.username,
+      profile_photo: req.user.profile_photo,
+    },
   }
   Post.create(post)
     .then(post => {res.json({success:true, post})})
@@ -72,7 +75,7 @@ router.get('/feed', passport.authenticate('jwt', {session: false}), (req, res, n
   req.user.following.forEach(element => {
     following.push(element.username)
   });
-  Post.find({'author': {$in: following}})
+  Post.find({'author.username': {$in: following}})
   .sort({'date': -1}).limit(9)
   .then(posts => res.json({success: true, posts}))
   .catch(err => res.json({success: false}))
