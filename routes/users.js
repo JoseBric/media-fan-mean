@@ -22,12 +22,13 @@ router.get('/', async (req, res, next) => {
 // @desc   Create An User
 // @acces  Public
 router.post('/signup', async (req, res, next) => {
+  const profile_photo = 'https://media-fan.s3-us-west-1.amazonaws.com/profile_photo/default.png'
   const {email, username, password} = req.body
   const hashedPassword = hashPassword(password)
 
   const available = await usernameAvailable(username)
   if(available) {
-    const newUser = new User({email, username, password: hashedPassword, following: [], followers: [], profile_photo: ''})
+    const newUser = new User({email, username, password: hashedPassword, following: [], followers: [], profile_photo})
   
     newUser.save((err, user) => {
       if(err) res.json({success: false, msg: 'Failed to register user'})
@@ -71,11 +72,49 @@ router.post('/login', async (req, res, next) => {
 // @route  GET users/profile/:username
 // @desc   Get User Profile
 // @acces  Public
-router.get('/profile/:username', passport.authenticate('jwt', {session:false}) ,(req, res, next) => {
+router.get('/profile/:username', (req, res, next) => {
   const {username} = req.params
   User.findOne({username})
-  .then(user => res.json({user, success: true}))
+  .then(user => {
+    user.password = null
+    res.json({user, success: true})
+  })
   .catch(err => res.statusCode(404).json({success:false, msg: err}))
+})
+
+router.put('/switchFollow/:username', passport.authenticate('jwt', {session:false}),async (req, res, next) => {
+  const {username} = req.params //username of passiveUser
+  const passiveUser = await User.findOne({username})
+  const activeUser = req.user
+
+  const following = activeUser.following.find(usr => usr.username = username) != undefined
+
+  if(following) {
+    // Unfollow
+    activeUser.following = activeUser.following.filter(usr => usr.username != passiveUser.username)
+    passiveUser.followers = passiveUser.followers.filter(usr => usr.username != activeUser.username)
+
+    const unfollower = await activeUser.save()
+    const unfollowed = await passiveUser.save()
+
+    if(unfollower && unfollowed) res.json({success: true, activeUser, following: false})
+    else res.json({success: false})
+  }
+  else {
+    // Follow
+    const follower = await activeUser.updateOne({$push: {following: {
+      username: passiveUser.username,
+      profile_photo: passiveUser.profile_photo,
+    }}})
+
+    const followed = await passiveUser.updateOne({$push: {followers: {
+      username: activeUser.username,
+      profile_photo: activeUser.profile_photo,
+    }}})
+
+    if(follower && followed) res.json({success: true, activeUser, following: true})
+    else res.json({success: false})
+  }
 })
 
 // @route  PUT users/follow/:username
@@ -164,6 +203,16 @@ router.get('/usernameAvailable/:username', async (req, res, next) => {
   const available = await usernameAvailable(username)
   if(available) res.json({available: true})
   else res.json({available: false})
+})
+
+// @route  GET users/checkFollow/:active/:passive
+// @desc   Check if active user follows passive user
+// @acces  Public
+router.get('/checkFollow/:active/:passive', async (req, res, next) => {
+  const {active, passive} = req.params
+  const activeUser = await User.findOne({username: active})
+  const following = activeUser.following.find(usr => usr.username == passive) != undefined
+  res.json({following})
 })
 
 async function usernameAvailable(username) {

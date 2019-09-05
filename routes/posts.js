@@ -67,17 +67,27 @@ router.post('/uploadImageUrl', passport.authenticate('jwt', {session: false}), (
     res.json({file: req.file.location, success: true})
 })
 
-// @route  GET get/:username
-// @desc   Get Someones Feed
+// @route  GET posts/feed
+// @desc   Get Someone's Feed
 // @acces  Authenticated
 router.get('/feed', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  let following = []
-  req.user.following.forEach(element => {
-    following.push(element.username)
-  });
+  const following = req.user.following.map(({username}) => username)
+
   Post.find({'author.username': {$in: following}})
   .sort({'date': -1}).limit(9)
   .then(posts => res.json({success: true, posts}))
   .catch(err => res.json({success: false}))
 })
+
+// @route  GET posts/profile/username
+// @desc   Get Someone's Profile
+// @acces  Public
+router.get('/profile/:username', (req, res, next) => {
+  const { username } = req.params
+  Post.find({'author.username': username})
+  .sort({'date': -1}).limit(9)
+  .then(posts => res.json({success: true, posts}))
+  .catch(err => res.json({success: false}))
+})
+
 module.exports = router
