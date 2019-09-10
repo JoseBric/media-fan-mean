@@ -90,4 +90,25 @@ router.get('/profile/:username', (req, res, next) => {
   .catch(err => res.json({success: false}))
 })
 
+// @route  GET posts/star/:post_id
+// @desc   Star post
+// @acces  Public
+router.put('/star/:post_id', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
+  const {post_id} = req.params
+  const {username, profile_photo} = req.user
+  const user = {
+    username,
+    profile_photo,
+  }
+
+  const post = await Post.findById(post_id)
+  const starred = post.stars.find(usr => usr.username == username)
+
+  if(starred) await post.updateOne({$pull: {stars: user}})
+  else await post.updateOne({$push: {stars: user}})
+
+  if(res) res.json({success:true})
+  else res.json({success:false})
+})
+
 module.exports = router

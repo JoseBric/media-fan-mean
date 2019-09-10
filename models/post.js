@@ -1,30 +1,8 @@
 const mongoose = require('mongoose')
 
-const CommentSchema = mongoose.Schema({
-  author: {
-    required: true,
-    type: {
-      username: String,
-      profile_photo: {
-        required: false,
-        type: String,
-      },
-    }
-  },
-  date: {
-    required: true,
-    type: Date,
-    default: Date.now,
-  },
-  content: {
-    required: true,
-    type: String,
-  },
-  stars: {
-    required: true,
-    default: 0,
-    type: Number,
-  }
+const UserSchema = mongoose.Schema({
+  username: String,
+  profile_photo: String,
 })
 
 const PostSchema = mongoose.Schema({
@@ -36,26 +14,22 @@ const PostSchema = mongoose.Schema({
     required: true,
     type: {
       username: String,
-      profile_photo: {
-        required: false,
-        type: String,
-      },
+      profile_photo: String,
     }
   },
   stars: {
-    required: true,
-    type: [String],
-    default: 0,
+    required: false,
+    type: [UserSchema],
   },
   date: {
     required: true,
     type: Date,
     default: Date.now,
   },
-  comments: {
-    required: false,
-    type: [CommentSchema],
-  }
 })
+
+PostSchema.methods.updateAuthorsPhoto = function (username, photo) {
+  Post.update({$set: {'author.profile_photo': photo}}, {'author.username': username}, {multi: true})
+}
 
 module.exports = mongoose.model('Post', PostSchema)

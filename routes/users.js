@@ -215,6 +215,15 @@ router.get('/checkFollow/:active/:passive', async (req, res, next) => {
   res.json({following})
 })
 
+// @route  GET users/profile_photo/:username
+// @desc   Get user's profile photo
+// @acces  Public
+router.get('profile_photo/:username', async (req, res, next) => {
+  const {username} = req.params
+  const {profile_photo} = await User.findOne({username})
+  res.json({profile_photo})
+})
+
 async function usernameAvailable(username) {
   const user = await User.findOne({username})
   if(user) return false
