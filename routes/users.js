@@ -87,6 +87,9 @@ router.put('/switchFollow/:username', passport.authenticate('jwt', {session:fals
   const passiveUser = await User.findOne({username})
   const activeUser = req.user
 
+  if(passiveUser.username == activeUser.username) 
+    return res.statusCode(400).json({success:false, msg: 'You cannot follow yourself'}) 
+
   const following = activeUser.following.find(usr => usr.username = username) != undefined
 
   if(following) {
@@ -97,7 +100,7 @@ router.put('/switchFollow/:username', passport.authenticate('jwt', {session:fals
     const unfollower = await activeUser.save()
     const unfollowed = await passiveUser.save()
 
-    if(unfollower && unfollowed) res.json({success: true, activeUser, following: false})
+    if(unfollower && unfollowed) res.json({success: true, following: false})
     else res.json({success: false})
   }
   else {
@@ -112,7 +115,7 @@ router.put('/switchFollow/:username', passport.authenticate('jwt', {session:fals
       profile_photo: activeUser.profile_photo,
     }}})
 
-    if(follower && followed) res.json({success: true, activeUser, following: true})
+    if(follower && followed) res.json({success: true, following: true})
     else res.json({success: false})
   }
 })
@@ -222,6 +225,17 @@ router.get('profile_photo/:username', async (req, res, next) => {
   const {username} = req.params
   const {profile_photo} = await User.findOne({username})
   res.json({profile_photo})
+})
+
+// @route  GET users/getFollows/:username
+// @desc   Check followers and following list
+// @acces  Public
+router.get('/getFollows/:username', (req, res, next) => {
+  const {username} = req.params
+  User.findOne({username})
+    .then(user => {
+      res.json({username, following: user.following, followers: user.followers})
+    })
 })
 
 async function usernameAvailable(username) {
