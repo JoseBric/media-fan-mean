@@ -5,7 +5,7 @@ const router = express.Router()
 const Post = require('../models/post')
 const upload = require('../services/fileUpload')
 
-const singleUpload = upload.single('image')
+const singleUpload = upload.single('profile_photo')
 
 const passport = require('passport')
 const env = require('dotenv').config().parsed

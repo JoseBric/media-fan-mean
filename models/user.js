@@ -30,6 +30,10 @@ const UserSchema = Schema({
     type: String,
     required: false,
   },
+  biography: {
+    type: String,
+    required: false,
+  },
   public_profile: {
     type: Boolean,
     required: false,

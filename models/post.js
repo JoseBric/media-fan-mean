@@ -28,8 +28,8 @@ const PostSchema = mongoose.Schema({
   },
 })
 
-PostSchema.methods.updateAuthorsPhoto = function (username, photo) {
-  Post.update({$set: {'author.profile_photo': photo}}, {'author.username': username}, {multi: true})
+PostSchema.statics.updateAuthorsPhoto = function (username, photo) {
+  return this.model.update({$set: {'author.profile_photo': photo}}, {'author.username': username}, {multi: true})
 }
 
 module.exports = mongoose.model('Post', PostSchema)

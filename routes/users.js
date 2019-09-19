@@ -6,8 +6,12 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const User = require('../models/user')
+const Post = require('../models/post')
 
 const env = require('dotenv').config().parsed
+
+const upload = require('../services/uploadProfilePhoto')
+const singleUpload = upload.single('profile_photo')
 
 // @route  GET users/
 // @desc   Get all users
@@ -190,13 +194,66 @@ router.put('/unfollow/:username', passport.authenticate('jwt', {session:false}) 
 // @route  PUT users/updateEmail/:username
 // @desc   Change email
 // @acces  Authenticated
-router.put('/updateEmail/:username', passport.authenticate('jwt', {session:false}) ,(req, res, next) => {
+router.put('/updateEmail/:username', passport.authenticate('jwt', {session:false}) ,async (req, res, next) => {
   const {username} = req.params
   const {email} = req.body
-  User.updateOne({username}, {$set: {email}})
-  .then(user => res.json({user, success: true}))
-  .catch(err => res.json({success:false, msg: err}))
+  const isEmailUsed = await User.find({email})
+  if(!isEmailUsed) {
+    User.updateOne({username}, {$set: {email}})
+    .then(user => res.json({user, success: true}))
+    .catch(err => res.json({success:false, alreadyUsed: false}))
+  } 
+  else res.json({success: false, alreadyUsed: true,})
 })
+
+// @route  PUT users/updateEmail
+// @desc   Change email
+// @acces  Authenticated
+router.put('/updateEmail', passport.authenticate('jwt', {session:false}) ,async (req, res, next) => {
+  const {username} = req.user
+  const {email} = req.body
+  if(email == req.user.email) res.json({success: true})
+  const isEmailUsed = await User.count({email})
+
+  if(isEmailUsed == 0) {
+    User.updateOne({username}, {$set: {email}})
+    .then(() => res.json({email, success: true}))
+    .catch(err => res.json({success:false, alreadyUsed: false}))
+  } 
+  else res.json({success: false, alreadyUsed: true,})
+})
+
+// @route  PUT users/updateBiography
+// @desc   Change email
+// @acces  Authenticated
+router.put('/updateBiography', passport.authenticate('jwt', {session:false}) ,async (req, res, next) => {
+  const {username} = req.user
+  const {biography} = req.body
+
+  User.updateOne({username}, {$set: {biography}})
+  .then(() => res.json({biography, success: true}))
+  .catch(() => res.json({success:false}))
+})
+
+// @route  PUT users/updateProfilePhoto
+// @desc   Change email
+// @acces  Authenticated
+router.put('/updateProfilePhoto', passport.authenticate('jwt', {session:false}) ,async (req, res, next) => {
+  const {username} = req.user
+  
+  singleUpload(req, res, (err) => {
+    if(err) return res.json({success: false, err})
+    const profile_photo = req.file.location
+    User.updateOne({username}, {$set: {profile_photo}})
+    .then(() => {
+      Post.update({$set: {'author.profile_photo': photo}}, {'author.username': username}, {multi: true})
+      res.json({success: true, url: profile_photo})
+    })
+    .catch(() => res.json({success:false}))
+  })
+
+})
+
 
 // @route  GET users/usernameAvailable/:username
 // @desc   Check username availability email
@@ -221,7 +278,7 @@ router.get('/checkFollow/:active/:passive', async (req, res, next) => {
 // @route  GET users/profile_photo/:username
 // @desc   Get user's profile photo
 // @acces  Public
-router.get('profile_photo/:username', async (req, res, next) => {
+router.get('/profile_photo/:username', async (req, res, next) => {
   const {username} = req.params
   const {profile_photo} = await User.findOne({username})
   res.json({profile_photo})
