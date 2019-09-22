@@ -213,7 +213,7 @@ router.put('/updateEmail', passport.authenticate('jwt', {session:false}) ,async 
   const {username} = req.user
   const {email} = req.body
   if(email == req.user.email) res.json({success: true})
-  const isEmailUsed = await User.count({email})
+  const isEmailUsed = await User.countDocuments({email})
 
   if(isEmailUsed == 0) {
     User.updateOne({username}, {$set: {email}})
@@ -293,6 +293,19 @@ router.get('/getFollows/:username', (req, res, next) => {
     .then(user => {
       res.json({username, following: user.following, followers: user.followers})
     })
+})
+
+// @route  GET users/search_user/:string
+// @desc   Search a user matching the string passed as parameter
+// @acces  Public
+router.get('/search_user/:string', (req, res, next) => {
+  const {string} = req.params
+  User.find({username: {$regex: `${string}`}}).select('email username profile_photo -_id')
+    .then(users => {
+      if(users.length == 0) res.json({matches: false})
+      res.json({users, matches: true})
+    })
+    .catch(err => res.json({err: true, matches: false}))
 })
 
 async function usernameAvailable(username) {
