@@ -56,6 +56,7 @@ router.post('/login', async (req, res, next) => {
   const isMatch = await bcrypt.compare(password, user.password)
   if(!isMatch) return res.json({success: false, msg: 'Wrong password'})  
 
+  user.password = null
   // Loging In
   const token = jwt.sign({data: user}, env.SECRET, { expiresIn: 60 * 60 * 24 * 7})
 

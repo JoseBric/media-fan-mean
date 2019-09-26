@@ -1,8 +1,11 @@
 const express = require('express')
+const app = express()
 const path = require('path')
 const cors = require('cors')
 const passport = require('passport')
 const mongoose = require('mongoose')
+const http = require('http').createServer(app)
+const io = require('socket.io').listen(http)
 
 // Import all environment variables
 const env = require('dotenv').config().parsed
@@ -21,7 +24,6 @@ mongoose.connection.on('error', err => {
   console.log('Database error ', err)
 })
 
-const app = express()
 
 // Middleware for beign able to get POST data
 app.use(express.json())
@@ -35,6 +37,7 @@ require('./passport')(passport)
 // Import routes
 const users = require('./routes/users')
 const posts = require('./routes/posts')
+const chats = require('./routes/chats')
 
 const PORT = 3000
 
@@ -47,15 +50,21 @@ app.use(cors())
 // Apply routes
 app.use('/users', users)
 app.use('/posts', posts)
+app.use('/chats', chats)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
 // Start server
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`Server started in port ${PORT}`)
 })
 
+const ChatManager = require('./sockets/chat')
+
+const chat = io.of('/chat')
+
+chat.on('connection', ChatManager)
 
 app.on('SIGINT', () => process.exit(0))

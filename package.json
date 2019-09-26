@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app",
     "watch": "nodemon app",
-    "dev": "concurrently \"npm run watch\" \"npm run start --prefix client \""
+    "dev": "concurrently \"npm run watch\" \"npm run start --prefix client \"",
+    "build": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "multer-s3": "^2.9.0",
     "passport": "*",
     "passport-jwt": "*",
+    "socket.io": "^2.3.0",
     "uuid": "^3.3.2"
   },
   "author": "josebric",
@@ -35,5 +37,6 @@
   "bugs": {
     "url": "https://github.com/JoseBric/media-fan-mean/issues"
   },
-  "homepage": "https://github.com/JoseBric/media-fan-mean#readme"
+  "homepage": "https://github.com/JoseBric/media-fan-mean#readme",
+  "devDependencies": {}
 }
