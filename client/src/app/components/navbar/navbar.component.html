@@ -6,12 +6,12 @@
     <a id="branding" class="navbar-brand" [routerLink]="['/']">MEDIAFAN</a>
   </div>
   <div class="nav col-md-4" id="nav-links">
-    <div class="links-auth" *ngIf="!auth.loggedIn()">
+    <div class="links-auth" *ngIf="!signedIn">
       <a class="mf-btn-secondary" [routerLink]="['/login']" routerLinkActive="active">Log in</a>
       <a class="mf-btn-secondary" [routerLink]="['/signup']" routerLinkActive="active">Sign up</a>
     </div>
 
-    <div class="links-nav" *ngIf="auth.loggedIn() && user">
+    <div class="links-nav" *ngIf="signedIn && user">
       <a [routerLink]="['/chat/', user?.username]">
         <i class="far fa-envelope"></i>
       </a>
@@ -20,7 +20,6 @@
       
       
       <a (click)="logout()" routerLinkActive="active">Logout</a>
-      
     </div>
   </div>
 </nav>

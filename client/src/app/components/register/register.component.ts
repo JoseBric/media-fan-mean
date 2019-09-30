@@ -15,17 +15,12 @@ export class RegisterComponent implements OnInit {
   email:String
   username:String
   password:String
-  navbar: HTMLElement = document.querySelector<HTMLElement>('#navbar')
 
   constructor(private validate:ValidateService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.hideNavbar()
   }
 
-  hideNavbar() {
-    this.navbar.style.display = 'none'
-  }
 
   typingEmail(e) {
   }

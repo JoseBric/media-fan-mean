@@ -10,10 +10,5 @@ export class LandingPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.showNavbar()
-  }
-  
-  showNavbar() {
-    document.querySelector<HTMLElement>('#navbar').style.display = 'flex'
   }
 }
