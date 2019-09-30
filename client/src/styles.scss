@@ -22,24 +22,83 @@ app-root {
 }
 
 body {
-  overflow-x: hidden !important;
+  background: $bg-color;
   font-family: $font-text !important;
+  overflow-x: hidden !important;
 }
 .swal2-popup.swal2-toast.toast-overflow.swal2-show
 {
   overflow: hidden !important;
 }
 
+
 .mf-btn-primary {
   color: #fff;
-  background: $primary;
-}
+  background: $primary;  
+  border: none;
 
-.mf-btn-secondary {
   padding: 7px 15px;
   border-radius: 50px;
 
+  font-weight: 700;
+
+  transition: all ease-out 0.25s;
+
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.mf-btn-secondary {
   color: $primary;
   background: #fff;
+
+  &:hover {
+    color: $primary-light;
+    background: darken(#fff, 10);
+    text-decoration: none;
+    text-decoration: none;
+  }
+  border: none;
+
+  padding: 7px 15px;
+  border-radius: 50px;
+
   font-weight: 700;
+
+  transition: all ease-out 0.25s;
+
+  text-decoration: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.mf-input {
+  padding: 12px 20px;
+  width: 100%;
+
+  border-radius: 20px;
+  border: none;
+
+  color: $primary;
+
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $primary-light;
+    
+  }
 }

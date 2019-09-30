@@ -1,5 +1,71 @@
-.row {
-  width: 100%;
+@import '../../../variables';
+
+#login {
+  text-align: center;
+  padding-top: 60px; // Navbar spacing
+  background: $primary;
+
+  background: url('../../../assets/images/bg-circle.png') no-repeat -150px 120px, 
+              url('../../../assets/images/bg-shape.png') no-repeat right bottom, 
+              $primary-gradient;
+
   height: 100%;
-  padding-top: 10rem;
+  color: white;
+
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  .branding-link {
+    &:hover {
+      text-decoration: none;
+    }
+
+    .branding {
+      padding: 0;
+      letter-spacing: 2px;
+  
+      font-size: 48px;
+      color: white;
+      font-weight: 700;
+  
+      font-family: $font-title;
+  
+      margin-bottom: 3rem;
+    }
+  }
+  
+  .form-signin {
+    height: max-content;
+    width: 25vw;
+    align-self: center;
+
+    transform: translateY(-50%);
+
+    input {
+      margin-bottom: 9px;
+    }
+
+    .mf-btn-secondary {
+      margin-bottom: 12px;
+      margin-bottom: 30px;
+      padding: 12px 15px;
+      width: 100%;
+      font-size: 20px;
+    
+      border-radius: 20px;
+      border: none;
+  
+      &:hover {
+        background: $primary;
+        color: white;
+        font-weight: bold;
+      }
+    }
+
+    .link {
+      color: white;
+    }
+  }
+
 }

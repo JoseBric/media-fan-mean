@@ -15,11 +15,16 @@ export class RegisterComponent implements OnInit {
   email:String
   username:String
   password:String
-  repeatPassword:String
+  navbar: HTMLElement = document.querySelector<HTMLElement>('#navbar')
 
   constructor(private validate:ValidateService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.hideNavbar()
+  }
+
+  hideNavbar() {
+    this.navbar.style.display = 'none'
   }
 
   typingEmail(e) {
@@ -51,7 +56,7 @@ export class RegisterComponent implements OnInit {
     }
     this.auth.registerUser(user).subscribe(() => {
       Toast.fire(`You've successfully created your acount`, 'Now you can log in', 'success')      
-      this.router.navigate(['/'])
+      this.router.navigate(['/login'])
     })
   }
 

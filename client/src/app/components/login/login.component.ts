@@ -13,9 +13,20 @@ export class LoginComponent implements OnInit {
   username: String
   password: String
 
-  constructor(private validate:ValidateService, private auth:AuthService, private router:Router) { }
+  navbar: HTMLElement = document.querySelector<HTMLElement>('#navbar')
+
+  constructor(private validate:ValidateService, private auth:AuthService, private router:Router) {}
 
   ngOnInit() {
+    this.hideNavbar()
+  }
+
+  hideNavbar() {
+    this.navbar.style.display = 'none'
+  }
+  
+  showNavbar() {
+    this.navbar.style.display = 'flex'
   }
 
   onSubmit():void {
@@ -25,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/'])
         this.auth.storeUserData(data.token, JSON.stringify(data.user))
         Toast.fire(`Welcome back ${data.user.username}`, 'You are logged in', 'success')
+        this.showNavbar()
       } else Toast.fire('There was an error trying to log you in', data.msg, 'error')
     })
   }

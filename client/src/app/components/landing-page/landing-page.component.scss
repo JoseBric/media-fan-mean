@@ -1,6 +1,11 @@
 @import '../../../variables';
 
+::ng-deep #navbar {
+  display: flex;
+}
+
 #landing-page {
+
   padding-top: 60px; // Navbar spacing
   background: $primary;
 
@@ -9,4 +14,23 @@
               $primary-gradient;
 
   height: 100%;
+  
+  text-align: center;
+  color: white;
+  .title {
+    margin: 5rem 0 3rem 0;
+  }
+
+  .posts-images {
+    width: 100vw;
+    margin-top: 8rem;
+
+    display: flex;
+    justify-content: space-evenly;
+
+
+    a {
+
+    }
+  }
 }
