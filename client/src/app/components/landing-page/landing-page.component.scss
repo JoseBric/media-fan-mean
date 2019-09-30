@@ -1,0 +1,12 @@
+@import '../../../variables';
+
+#landing-page {
+  padding-top: 60px; // Navbar spacing
+  background: $primary;
+
+  background: url('../../../assets/images/bg-circle.png') no-repeat -150px 120px, 
+              url('../../../assets/images/bg-shape.png') no-repeat right bottom, 
+              $primary-gradient;
+
+  height: 100%;
+}

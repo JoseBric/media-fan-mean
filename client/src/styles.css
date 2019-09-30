@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+app-root {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+body {
+  overflow-x: hidden !important;
+}
+
+.swal2-popup.swal2-toast.toast-overflow.swal2-show {
+  overflow: hidden !important;
+}
+/*# sourceMappingURL=styles.css.map */

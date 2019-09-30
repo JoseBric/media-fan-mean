@@ -1,0 +1,18 @@
+<div id="search">
+  <div class="search-input-wrapper">
+    <input class="search-input form-control" type="text" placeholder="Search..." [(ngModel)]="query" (input)="searchUsers($event)"  (focus)="focus()" (blur)="unfocus()"/>
+    <i class="fas fa-search"></i>
+  </div>
+  <ul class="suggestions" *ngIf="focused">
+    <ng-container *ngIf="matches">
+      <li class="user-item" *ngFor="let user of users">
+        <a class="user" [routerLink]="['/' + user.username]">
+          <span class="username">{{ user.username }}</span> <img class="user-photo" src="{{ user.profile_photo }}" alt="profile_photo">
+        </a>
+      </li>
+    </ng-container>
+    <span *ngIf="!matches" id="emptyUsers">
+      No users found
+    </span>
+  </ul>
+</div>

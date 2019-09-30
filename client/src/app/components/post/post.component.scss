@@ -1,0 +1,40 @@
+.post {
+  .text-level-{
+    font-weight: bold;
+    &1 {
+      font-size: 2.5rem;
+    }
+    &2 {
+      font-size: 2rem;
+    }
+    &3 {
+      font-size: 1.75rem;
+    }
+    &4 {
+      font-size: 1.5rem;
+    }
+    &5 {
+      font-size: 1.25rem;
+    }
+    &6 {
+      font-size: 1rem;
+    }
+  }
+  
+  .image {
+    width: 100%;
+  }
+
+  .authors {
+    &_photo {
+      width: 35px;
+      height: auto;
+      border-radius: 50%;
+
+    }
+    &_name {
+      display: inline-block;
+    }
+  }
+
+}

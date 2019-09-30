@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,SAAS,CAAC,uBAAuB,CAAC;EAChC,cAAc,EAAE,YAAY;EAC5B,UAAU,EAAE,gBAAgB;CAC7B",
+    "sources": [
+        "post-creator.component.scss"
+    ],
+    "names": [],
+    "file": "post-creator.component.css"
+}

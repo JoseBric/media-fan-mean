@@ -1,0 +1,10 @@
+.user-profile-item .users_photo {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.user-profile-item .username {
+  display: inline-block;
+}
+/*# sourceMappingURL=user-profile-item.component.css.map */

@@ -1,0 +1,12 @@
+<div class="user-profile-item">
+  <img class="users_photo" src="{{ user?.profile_photo }}" alt="Profile Photo">
+  <a class="username" [routerLink]="['/', user?.username]">{{user.username}}</a>
+  <div class="followButtons" *ngIf="user?.username != loggedInUser?.username">
+    <button (click)="switchFollowUnfollow(user)" *ngIf="doesFollow(user)" class="unfollow-btn">
+      Unfollow
+    </button>
+    <button (click)="switchFollowUnfollow(user)" *ngIf="!doesFollow(user)" class="follow-btn">
+      Follow
+    </button>
+  </div>
+</div>

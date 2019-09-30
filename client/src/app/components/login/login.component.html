@@ -1,0 +1,9 @@
+<div class="row text-center ">
+  <form class="form-signin mx-auto" (submit)="onSubmit()">
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <input [(ngModel)]="username" type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email or Username" required autofocus standalone>
+    <input [(ngModel)]="password" type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required standalone>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+  </form>
+</div>

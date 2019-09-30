@@ -1,0 +1,11 @@
+<div class="row text-center ">
+  <form class="form-signin mx-auto" (submit)="submitted()">
+    <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+    <input name="email" [(ngModel)]="email" (onKeyup)="typingEmail()" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <input name="username" [(ngModel)]="username" (onKeyup)="typingUsername()" type="text" id="inputUsername" class="form-control" placeholder="Username" required>
+    <input name="password" [(ngModel)]="password" (onKeyup)="typingPassword()" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input name="repeatPassword" [(ngModel)]="repeatPassword"(onKeyup)="typingRepeatedPassword()" type="password" id="inputRepeatedPassword" class="form-control" placeholder="Repeat Password" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
+  </form>
+</div>

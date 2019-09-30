@@ -1,0 +1,57 @@
+@import '../../../variables';
+
+#search {
+
+  position: relative;
+  width: 80%;
+  top: 0;
+  left: 0;
+
+  .suggestions {
+    width: 100%;
+    background: #fff;
+    width: 100%;
+    min-height: 30px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    border-radius: 20px;
+
+
+    li.user-item {
+      list-style: none;
+      text-decoration: none;
+      .user {
+        &-photo {
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+        }
+      }
+
+    }
+
+    #emptyUsers {
+      color: darken(#ccc, 30)
+    }
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+    .search-input {
+      width: 100%;
+      border-radius: 100px;
+      padding-left: 50px;
+    }
+    i {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      color: $primary;
+      font-size: 20px;
+    }
+  }
+}

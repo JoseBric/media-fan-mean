@@ -1,0 +1,21 @@
+<div id="chat">
+  <section class="contacts">
+    <ng-container *ngIf="chats">
+      <div class="contact" *ngFor="let contact of contacts">
+        <a [routerLink]="['/chat/' + contact]">{{contact}}</a>
+      </div>
+    </ng-container>
+  </section>
+  <section class="messages">
+    <ng-container *ngIf="messages">
+      <div class="message" *ngFor="let message of messages">
+        <div class="my-3" [ngClass]="message.from == loggedInUser.username ? 'message-sent' : 'message-received'">
+          <p class="my-0">{{ message.msg }}</p>
+          <span class="text-muted my-0">{{ message.from }}</span>
+        </div>
+      </div>
+      <input type="text" id="message-input" class="form-control" [(ngModel)]="messageInput" (keyup)="onKeyPressed($event)" (input)="writing($event)" autofocus>
+      <button class="btn btn-primary" (click)="submitMessage()">Send</button>  
+    </ng-container>
+  </section>
+</div>

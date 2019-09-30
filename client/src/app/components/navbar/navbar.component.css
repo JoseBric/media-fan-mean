@@ -1,0 +1,11 @@
+#branding {
+  position: absolute;
+  right: 50%;
+}
+
+.profile_photo {
+  height: 30px;
+  width: auto;
+  border-radius: 50%;
+}
+/*# sourceMappingURL=navbar.component.css.map */

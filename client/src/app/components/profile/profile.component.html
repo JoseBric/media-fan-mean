@@ -1,0 +1,42 @@
+<app-followers-modal *ngIf="profileFollowing || profileFollowers" (switchFollow)="switchFollow($event)" [profileFollowing]="profileFollowing" [profileFollowers]="profileFollowers" [title]="modalTitle" [loggedUserFollowing]="loggedUserFollowing" [loggedInUser]="loggedInUser"></app-followers-modal>
+<div id="profile">
+  <section class="bio">
+    <div class="info">
+      <h1>{{profileUser?.username}}</h1>
+      <img src="{{profileUser?.profile_photo}}" alt="profile_photo">
+      <p id="description">{{ profileUser?.description || 'No description'}}</p>
+      <p class="followList" (click)="followingModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowing?.length }} Following</p>
+      <p class="followList" (click)="followersModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowers?.length }} Followers</p>
+      <a class="btn btn-dark" *ngIf="ownProfile && profileUser" [routerLink]="['/edit', profileUser?.username]">Edit Profile</a>
+      <a class="btn btn-dark" *ngIf="ownProfile && !profileUser">Edit Profile</a>
+      <a class="message" *ngIf="profileUser && !ownProfile" [routerLink]="['/chat/', profileUser?.username]" >
+        <i class="far fa-envelope"></i>
+      </a>
+      <a class="message" *ngIf="!profileUser && !ownProfile">
+        <i class="far fa-envelope"></i>
+      </a>
+    </div>
+    <div (click)="switchFollow(profileUser.username)" class="switch-follow" *ngIf="!ownProfile && loggedInUser">
+      <button *ngIf="isFollowing" class="btn btn-dark unfollow">
+        Unfollow
+      </button>
+      <button *ngIf="!isFollowing" class="btn btn-dark follow">
+        Follow
+      </button>
+    </div>
+  </section>
+  <section>
+    <div *ngIf="ownProfile" class="post post-creator col-6 my-3">
+      <app-post-creator (posted)="postCreated()"></app-post-creator>
+    </div>
+    <app-posts [posts]="profilePosts" [user]="loggedInUser"></app-posts>
+  </section>
+  <div id="loader">
+    <p *ngIf="hasMore">
+      Loading...
+    </p>
+    <p *ngIf="!hasMore">
+      There are no more posts
+    </p>
+  </div>
+</div>

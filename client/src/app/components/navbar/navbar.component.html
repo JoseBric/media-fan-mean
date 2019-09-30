@@ -1,0 +1,26 @@
+<nav class="navbar navbar-light bg-light" id="navbar">
+  <div class="col-md-4">
+    <app-search></app-search>
+  </div>
+  <div class="col-md-4">
+    <a id="branding" class="navbar-brand" [routerLink]="['/']">MEDIAFAN</a>
+  </div>
+  <div class="nav col-md-4" id="nav-links">
+    <div class="links-auth" *ngIf="!auth.loggedIn()">
+      <a class="mf-btn-secondary" [routerLink]="['/login']" routerLinkActive="active">Log in</a>
+      <a class="mf-btn-secondary" [routerLink]="['/signup']" routerLinkActive="active">Sign up</a>
+    </div>
+
+    <div class="links-nav" *ngIf="auth.loggedIn() && user">
+      <a [routerLink]="['/chat/', user?.username]">
+        <i class="far fa-envelope"></i>
+      </a>
+
+      <a [routerLink]="['/', user?.username]" routerLinkActive="active"><img src="{{ profile_photo || user?.profile_photo }}" class="profile_photo" alt="">{{user?.username}}</a>
+      
+      
+      <a (click)="logout()" routerLinkActive="active">Logout</a>
+      
+    </div>
+  </div>
+</nav>

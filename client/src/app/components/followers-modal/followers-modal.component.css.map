@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "followers-modal.component.scss"
+    ],
+    "names": [],
+    "file": "followers-modal.component.css"
+}

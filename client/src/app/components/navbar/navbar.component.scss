@@ -1,0 +1,50 @@
+@import '../../../variables';
+
+#navbar {
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  height: 60px;
+  
+  background: transparent !important;
+  border-bottom: 1px solid black;
+  
+  padding: 0 20px;
+
+  #branding {
+    padding: 0;
+    letter-spacing: 2px;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 40px;
+    color: white;
+    font-weight: 700;
+
+    font-family: $font-title;
+  }
+  
+  .profile_photo {  
+    height: 30px;
+    width: auto;
+    border-radius: 50%;
+  }
+
+  #nav-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+
+    .links-auth {
+      a {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+

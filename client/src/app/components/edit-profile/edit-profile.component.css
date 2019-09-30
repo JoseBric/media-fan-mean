@@ -1,0 +1,10 @@
+.profile_photo {
+  width: 300px;
+  height: 300px;
+}
+
+#profile_photo_image {
+  max-width: 100%;
+  max-height: 100%;
+}
+/*# sourceMappingURL=edit-profile.component.css.map */

@@ -1,0 +1,42 @@
+.post .text-level- {
+  font-weight: bold;
+}
+
+.post .text-level-1 {
+  font-size: 2.5rem;
+}
+
+.post .text-level-2 {
+  font-size: 2rem;
+}
+
+.post .text-level-3 {
+  font-size: 1.75rem;
+}
+
+.post .text-level-4 {
+  font-size: 1.5rem;
+}
+
+.post .text-level-5 {
+  font-size: 1.25rem;
+}
+
+.post .text-level-6 {
+  font-size: 1rem;
+}
+
+.post .image {
+  width: 100%;
+}
+
+.post .authors_photo {
+  width: 35px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.post .authors_name {
+  display: inline-block;
+}
+/*# sourceMappingURL=post.component.css.map */
