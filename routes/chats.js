@@ -6,7 +6,9 @@ const auth = passport.authenticate('jwt', {session: false})
 
 const Chat = require('../models/chat')
 
-
+// @route  GET chats/messages/:username
+// @desc   Get all messages between the authenticated user and other user
+// @acces  Authenticated
 router.get('/messages/:username', auth ,async (req, res, next) => {
   const {username: username1} = req.params
   const {username: username2} = req.user
@@ -20,6 +22,9 @@ router.get('/messages/:username', auth ,async (req, res, next) => {
   })
 })
 
+// @route  GET chats/
+// @desc   Get all chats of the authenticated user
+// @acces  Authenticated
 router.get('/', auth ,async (req, res) => {
   const authUser = req.user
 
@@ -29,6 +34,9 @@ router.get('/', auth ,async (req, res) => {
   })
 })
 
+// @route  POST chats/:receiver
+// @desc   Send a message to a user
+// @acces  Authenticated
 router.post('/:receiver', auth ,async (req, res) => {
   const {receiver} = req.params
   const {msg} = req.body

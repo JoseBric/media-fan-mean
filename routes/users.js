@@ -243,14 +243,14 @@ router.put('/updateProfilePhoto', passport.authenticate('jwt', {session:false}) 
   const {username} = req.user
   
   singleUpload(req, res, (err) => {
-    if(err) return res.json({success: false, err})
+    if(err) return res.json({success: false, err: 'err'})
     const profile_photo = req.file.location
     User.updateOne({username}, {$set: {profile_photo}})
     .then(() => {
-      Post.update({$set: {'author.profile_photo': photo}}, {'author.username': username}, {multi: true})
+      Post.update({$set: {'author.profile_photo': profile_photo}}, {'author.username': username}, {multi: true})
       res.json({success: true, url: profile_photo})
     })
-    .catch(() => res.json({success:false}))
+    .catch((err) => res.json({err: err, success:false}))
   })
 
 })

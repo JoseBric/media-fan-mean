@@ -114,4 +114,13 @@ router.put('/star/:post_id', passport.authenticate('jwt', {session: false}), asy
   else res.json({success:false})
 })
 
+// @route  PUT posts/updateProfilePhoto
+// @desc   Update profile photo of the author
+// @acces  Authenticated
+router.put('/updateProfilePhoto', passport.authenticate('jwt', {session: false}), (req, res) => {
+  
+})
+
+
+
 module.exports = router
