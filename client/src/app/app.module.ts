@@ -53,10 +53,6 @@ const appRoutes: Routes = [
     canActivate: [GuestGuard],
   },
   {
-    path: ':username',
-    component: ProfileComponent,
-  },
-  {
     path: 'edit/:username',
     component: EditProfileComponent,
     canActivate: [AuthGuard],
@@ -64,6 +60,14 @@ const appRoutes: Routes = [
   {
     path: 'chat/:username',
     component: ChatComponent,
+  },
+  {
+    path: 'chat',
+    component: ChatComponent,
+  },
+  {
+    path: ':username',
+    component: ProfileComponent,
   },
 ]
 
