@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light" id="navbar">
+<nav class="navbar" id="navbar" [style.background]="navbarTransparent ? 'transparent' : '#202a51'">
   <div class="col-md-4">
     <app-search></app-search>
   </div>
@@ -12,14 +12,24 @@
     </div>
 
     <div class="links-nav" *ngIf="signedIn && user">
-      <a [routerLink]="['/chat/', user?.username]">
+      <a class="chat" [routerLink]="['/chat/', user?.username]">
         <i class="far fa-envelope"></i>
       </a>
 
-      <a [routerLink]="['/', user?.username]" routerLinkActive="active"><img src="{{ profile_photo || user?.profile_photo }}" class="profile_photo" alt="">{{user?.username}}</a>
-      
-      
-      <a (click)="logout()" routerLinkActive="active">Logout</a>
+      <div class="dropdown">
+        <div class="userButton dropdown-toggle" data-toggle="dropdown">
+          <img src="{{ profile_photo || user?.profile_photo }}" class="profile_photo" alt=""> 
+          <span class="username">
+            {{user?.username}}
+          </span>
+        </div>
+        
+        <div class="dropdown-menu">
+          <a class="dropdown-item" [routerLink]="['/', user?.username]" routerLinkActive="active">Profile</a>
+          <a class="dropdown-item" [routerLink]="['/edit/', user?.username]" routerLinkActive="active">Settings</a>
+          <a class="dropdown-item" (click)="logout()">Sign Out</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

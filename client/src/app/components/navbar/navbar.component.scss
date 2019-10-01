@@ -2,14 +2,12 @@
 
 #navbar {
   z-index: 5;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   
   width: 100%;
   height: 60px;
-  
-  background: transparent !important;
   
   padding: 0 20px;
 
@@ -39,10 +37,70 @@
     align-items: center;
     height: 100%;
 
+    .links-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .chat {
+        margin-right: 1rem;
+        i {
+          color: white;
+          font-size: 30px;
+        }
+      }
+
+      .dropdown {
+        .userButton {
+          cursor: pointer;
+    
+          .profile_photo {
+            height: 40px;
+            width: 40px;
+          }
+    
+          .username {
+            color: #fff;
+          }
+    
+          &::after {
+            color: white;
+          }
+        }
+    
+        .dropdown-menu {
+          background: $primary-light; 
+          left: unset;
+    
+          top: 110%;
+          right: 0px;
+    
+          .dropdown-item {
+            color: #fff;
+    
+            &:hover {
+              background: $primary;
+            }
+    
+            &:last-child {
+              cursor: pointer;
+            }
+    
+            &.active {
+              background: $primary;
+            }
+          }
+        }
+      }
+    }
+
     .links-auth {
       a {
         margin-right: 30px;
       }
+
+
+    
     }
   }
 }

@@ -12,6 +12,7 @@ import Toast from './lib/toast';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  navbarTransparent: any
   user: User
   profile_photo: string
   signedIn: boolean
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit{
   activated(component) {
     const name = component.constructor.name
     this.navbarHidden = name == 'RegisterComponent' || name == 'LoginComponent'
+    this.navbarTransparent = name == 'RegisterComponent' || name == 'LoginComponent' || name == 'LandingPageComponent'
     if(this.auth.loggedIn()) this.userData()
   }
   
