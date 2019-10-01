@@ -18,6 +18,8 @@ export class ChatComponent implements OnInit {
   messages: [{}]
   socket: any
 
+  profile_photos: [{username:string, profile_photo:string}]
+
   loggedInUser: User
   currentUser: User
 
@@ -37,8 +39,22 @@ export class ChatComponent implements OnInit {
       await this.getChats(loggedInUser.username, this.token)
       this.handleSockets()
       this.getMessages()
+      this.getProfilePhotos(this.contacts)
 
     })
+  }
+
+  getProfilePhotos(usernames:[string]) {
+      this.userService.getProfilePhotos(usernames).subscribe((profile_photos) => {
+        console.log(profile_photos)
+        this.profile_photos = profile_photos
+      })
+  }
+
+  getProfilePhoto(username:string) {
+    if(username == this.loggedInUser.username) return this.loggedInUser.profile_photo
+    const {profile_photo} = this.profile_photos.find(photos => photos.username == username)
+    return profile_photo
   }
 
   handleSockets() {

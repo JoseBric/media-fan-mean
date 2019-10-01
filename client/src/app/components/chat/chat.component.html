@@ -1,21 +1,28 @@
 <div id="chat">
-  <section class="contacts">
-    <ng-container *ngIf="chats">
-      <div class="contact" *ngFor="let contact of contacts">
-        <a [routerLink]="['/chat/' + contact]">{{contact}}</a>
-      </div>
-    </ng-container>
-  </section>
-  <section class="messages">
-    <ng-container *ngIf="messages">
-      <div class="message" *ngFor="let message of messages">
-        <div class="my-3" [ngClass]="message.from == loggedInUser.username ? 'message-sent' : 'message-received'">
-          <p class="my-0">{{ message.msg }}</p>
-          <span class="text-muted my-0">{{ message.from }}</span>
+  <div class="messenger">
+    <section class="contacts">
+      <ng-container *ngIf="chats && profile_photos">
+        <a [routerLink]="['/chat/' + contact.username]" class="contact" *ngFor="let contact of profile_photos">
+            <img src="{{ contact.profile_photo }}" alt="profile_photo" class="profile_photo"> 
+            <span class="username">{{contact.username}}</span>
+        </a>
+      </ng-container>
+    </section>
+    <section class="messages">
+      <ng-container *ngIf="messages && profile_photos">
+        <div class="message" *ngFor="let message of messages">
+          <div class="my-3" [ngClass]="message.from == loggedInUser.username ? 'message-sent' : 'message-received'">
+            <img class="message-profile-photo" src="{{ getProfilePhoto(message.from) }}" alt="profile_photo">
+            <p class="message-text" >{{ message.msg }}</p>
+          </div>
         </div>
-      </div>
-      <input type="text" id="message-input" class="form-control" [(ngModel)]="messageInput" (keyup)="onKeyPressed($event)" (input)="writing($event)" autofocus>
-      <button class="btn btn-primary" (click)="submitMessage()">Send</button>  
-    </ng-container>
-  </section>
+        <div id="message-creator">
+          <input type="text" class="mf-input" id="message-input" [(ngModel)]="messageInput" (keyup)="onKeyPressed($event)" (input)="writing($event)" autofocus>
+          <span (click)="submitMessage()" id="message-send-button">
+            Send
+          </span>
+        </div>
+      </ng-container>
+    </section>
+  </div>
 </div>

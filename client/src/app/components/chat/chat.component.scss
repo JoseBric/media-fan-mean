@@ -1,0 +1,126 @@
+@import '../../../variables';
+
+#chat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  .messenger {
+    height: 80vh;
+    width: 90%;
+    background: white;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    border-radius: 10px;
+    border: 2px solid $dark;
+
+    .contacts{
+      overflow-y: scroll;
+      padding: 1rem 2rem;
+
+      .contact {
+        cursor: pointer;
+        height: 70px;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+
+        border-bottom: 1px solid #ccc;
+        
+        &:nth-child(1) {
+          border-top: 1px solid #ccc;
+        }
+
+        &:hover {
+          background: $primary-light;
+          text-decoration: none;
+
+          span.username {
+            color: white;
+          }
+        }
+
+        img.profile_photo {
+          margin-left: 2rem;
+          height: 48px;
+          width: 48px;
+          border-radius: 30px;
+        }
+  
+        span.username {
+          margin-left: 1rem;
+          color: $dark;
+        }
+      }
+    }
+
+    .messages{
+      overflow-y: scroll;
+      padding: 1rem 2rem;
+      
+      .message {
+        .message-sent, .message-received {
+          padding: auto 0;
+
+          p.message-text {
+            display: inline-block;
+            clear:both;
+            padding-top: 5px;
+          }
+          img.message-profile-photo {
+            border-radius: 30px;
+            width: 40px;
+            height: 40px;
+          }
+
+        }
+        .message-sent {
+          text-align: right;
+          img {
+            float: right;
+            margin-left: 1rem;
+          }
+          p {
+            color: $primary;
+          }
+        }
+        
+        .message-received {
+          img {
+            float: left;
+            margin-right: 1rem;
+          }
+        }
+      }
+
+      #message-creator {
+        width: 100% !important;
+        position: relative;
+        top: 0;
+        left: 0;
+        
+        #message-input {
+          border: 1px solid #444;
+          width: 100%;
+        }
+        
+        #message-send-button {
+          position: absolute;
+          top: calc(50% - 12px);
+          right: 20px;
+
+          cursor: pointer;
+          color: $primary;
+
+          &:hover {
+            color: $primary-light;
+          }
+        }
+      }
+    }
+
+  }
+}

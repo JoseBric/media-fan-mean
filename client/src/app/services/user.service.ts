@@ -36,6 +36,10 @@ export class UserService {
     return this.http.get(`${this.base_url}profile_photo/${username}`)
   }
 
+  getProfilePhotos(usernames: [string]):Observable<any> {
+    return this.http.post(`${this.base_url}profile_photos`, {usernames}, {headers})
+  }
+
   getFollows(username:string):Observable<any> {
     return this.http.get(`${this.base_url}getFollows/${username}`, {headers})
   }

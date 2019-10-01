@@ -285,6 +285,15 @@ router.get('/profile_photo/:username', async (req, res, next) => {
   res.json({profile_photo})
 })
 
+// @route  POST users/profile_photos
+// @desc   Get profile photos
+// @acces  Public
+router.post('/profile_photos', async (req, res, next) => {
+  const {usernames} = req.body
+  const profile_photos = await User.find({username: { $in: usernames }}).select('profile_photo username -_id')
+  res.json(profile_photos)
+})
+
 // @route  GET users/getFollows/:username
 // @desc   Check followers and following list
 // @acces  Public
