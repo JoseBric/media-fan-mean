@@ -7,7 +7,7 @@
     <ng-container *ngIf="matches">
       <li class="user-item" *ngFor="let user of users">
         <a class="user" [routerLink]="['/' + user.username]">
-          <span class="username">{{ user.username }}</span> <img class="user-photo" src="{{ user.profile_photo }}" alt="profile_photo">
+          <img class="user-photo" src="{{ user.profile_photo }}" alt="profile_photo"> <span class="username">{{ user.username }}</span> 
         </a>
       </li>
     </ng-container>

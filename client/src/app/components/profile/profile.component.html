@@ -2,41 +2,55 @@
 <div id="profile">
   <section class="bio">
     <div class="info">
-      <h1>{{profileUser?.username}}</h1>
-      <img src="{{profileUser?.profile_photo}}" alt="profile_photo">
+      <div class="image">
+        <img class="profile-photo" src="{{profileUser?.profile_photo}}" alt="profile_photo">
+
+        <a class="message" *ngIf="profileUser && !ownProfile" [routerLink]="['/chat/', profileUser?.username]" >
+          <i class="far fa-envelope"></i>
+        </a>
+        <a class="message" *ngIf="!profileUser && !ownProfile">
+          <i class="far fa-envelope"></i>
+        </a>
+      </div>
+      
+      <div class="main-info-row">
+        <div class="follow-unfollow" (click)="switchFollow(profileUser.username)" class="switch-follow" *ngIf="!ownProfile && loggedInUser">
+
+          <button *ngIf="isFollowing" class="mf-btn-secondary unfollow">
+            Unfollow
+            </button>
+            <button *ngIf="!isFollowing" class="mf-btn-primary follow">
+              Follow
+            </button>
+          </div>
+
+          <a class="edit-profile mf-btn-primary" *ngIf="ownProfile && profileUser" [routerLink]="['/edit', profileUser?.username]">Edit Profile</a>
+          <a class="edit-profile mf-btn-primary" *ngIf="ownProfile && !profileUser">Edit Profile</a>
+          
+          <p class="numberPosts">{{ profilePosts?.length }} Posts</p>
+          
+          <h1 class="username">{{profileUser?.username}}</h1>
+          
+          <p class="followList" (click)="followingModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowing?.length }} Following</p>
+          <p class="followList" (click)="followersModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowers?.length }} Followers</p>
+      </div>
       <p id="description">{{ profileUser?.description || 'No description'}}</p>
-      <p class="followList" (click)="followingModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowing?.length }} Following</p>
-      <p class="followList" (click)="followersModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowers?.length }} Followers</p>
-      <a class="btn btn-dark" *ngIf="ownProfile && profileUser" [routerLink]="['/edit', profileUser?.username]">Edit Profile</a>
-      <a class="btn btn-dark" *ngIf="ownProfile && !profileUser">Edit Profile</a>
-      <a class="message" *ngIf="profileUser && !ownProfile" [routerLink]="['/chat/', profileUser?.username]" >
-        <i class="far fa-envelope"></i>
-      </a>
-      <a class="message" *ngIf="!profileUser && !ownProfile">
-        <i class="far fa-envelope"></i>
-      </a>
-    </div>
-    <div (click)="switchFollow(profileUser.username)" class="switch-follow" *ngIf="!ownProfile && loggedInUser">
-      <button *ngIf="isFollowing" class="btn btn-dark unfollow">
-        Unfollow
-      </button>
-      <button *ngIf="!isFollowing" class="btn btn-dark follow">
-        Follow
-      </button>
+
+
     </div>
   </section>
-  <section>
-    <div *ngIf="ownProfile" class="post post-creator col-6 my-3">
+  <section class="posts">
+    <div *ngIf="ownProfile" class="post post-creator col-4 my-3">
       <app-post-creator (posted)="postCreated()"></app-post-creator>
     </div>
     <app-posts [posts]="profilePosts" [user]="loggedInUser"></app-posts>
   </section>
   <div id="loader">
-    <p *ngIf="hasMore">
-      Loading...
-    </p>
+    <div class="loader" *ngIf="hasMore">
+      <div></div><div></div><div></div><div></div>
+    </div>
     <p *ngIf="!hasMore">
-      There are no more posts
+      No more posts
     </p>
   </div>
 </div>

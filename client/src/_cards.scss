@@ -1,0 +1,32 @@
+.mf-card {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+
+  background: $dark;
+  .mf-card-header {
+    display: flex;
+    align-content: center;
+    min-height: 30px;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .mf-card-content {
+    width: 100%;
+    
+    .mf-card-text {
+      color: white;
+      padding: 0 2rem;
+    }
+  }
+  
+  .mf-card-footer {
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    
+    min-height: 30px;
+    width: 100%;
+  }
+}

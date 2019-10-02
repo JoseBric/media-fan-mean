@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .post {
   .text-level-{
     font-weight: bold;
@@ -25,16 +27,45 @@
     width: 100%;
   }
 
-  .authors {
-    &_photo {
-      width: 35px;
-      height: auto;
-      border-radius: 50%;
-
-    }
-    &_name {
-      display: inline-block;
+  
+  .md-card-header {
+    height: 45px;
+    display: flex;
+    align-content: center;
+    .post-author {
+      align-self: center;
+      .authors {
+        &_photo {
+          margin: 0 1rem;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+        }
+        &_name {
+          align-self: center;
+          margin-bottom: 0;
+          display: inline-block;
+          color: white;
+          
+          &:hover {
+            color: $primary-light;
+            text-decoration: none;
+          }
+        }
+      }
     }
   }
 
+  .star {
+    span {
+      color: white;
+      font-size: 1.1rem;
+      margin: 0 0.5rem;
+      float: right;
+    }
+  }
+
+  .mf-card-text {
+    margin-bottom: 5px;
+  }
 }
