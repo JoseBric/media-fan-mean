@@ -3,6 +3,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'
 import { JwtHelperService } from "@auth0/angular-jwt";
 
+import * as config from '../config.json'
+
 const headers = new HttpHeaders({
   'Content-Type': 'application/json',
 })
@@ -14,7 +16,7 @@ const helper = new JwtHelperService();
 })
 
 export class AuthService {
-  baseRoute:string = 'http://192.168.0.2:3000/users/'
+  baseRoute:string = `${config.base_url}/users/`
 
   id_token:string = ''
   user:string = ''

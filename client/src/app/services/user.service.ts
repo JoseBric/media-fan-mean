@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import * as config from '../config.json'
+
 const headers = new HttpHeaders({
   'Content-Type': 'application/json',
 })
@@ -11,16 +13,16 @@ const headers = new HttpHeaders({
 })
 
 export class UserService {
-  base_url:string = 'http://192.168.0.2:3000/users/'
+  base_route:string = `${config.base_url}/users/`
 
   constructor(private http:HttpClient) { }
 
   getProfile(username: string):Observable<any> {
-    return this.http.get(`${this.base_url}profile/${username}`, {headers})
+    return this.http.get(`${this.base_route}profile/${username}`, {headers})
   }
 
   switchFollow(username: string, token: string):Observable<any> {
-    return this.http.put(`${this.base_url}switchFollow/${username}`, {}, {
+    return this.http.put(`${this.base_route}switchFollow/${username}`, {}, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': token,
@@ -29,19 +31,19 @@ export class UserService {
   }
 
   checkFollow(active: string, passive: string):Observable<any> {
-    return this.http.get(`${this.base_url}checkFollow/${active}/${passive}`)
+    return this.http.get(`${this.base_route}checkFollow/${active}/${passive}`)
   }
 
   getProfilePhoto(username: string):Observable<any> {
-    return this.http.get(`${this.base_url}profile_photo/${username}`)
+    return this.http.get(`${this.base_route}profile_photo/${username}`)
   }
 
   getProfilePhotos(usernames: [string]):Observable<any> {
-    return this.http.post(`${this.base_url}profile_photos`, {usernames}, {headers})
+    return this.http.post(`${this.base_route}profile_photos`, {usernames}, {headers})
   }
 
   getFollows(username:string):Observable<any> {
-    return this.http.get(`${this.base_url}getFollows/${username}`, {headers})
+    return this.http.get(`${this.base_route}getFollows/${username}`, {headers})
   }
 
   updateProfilePhoto(profile_photo: File, token: string):Observable<any> {
@@ -53,19 +55,19 @@ export class UserService {
         'Authorization': token,
       })
     }
-    return this.http.put(`${this.base_url}updateProfilePhoto`, formData, config)
+    return this.http.put(`${this.base_route}updateProfilePhoto`, formData, config)
   }
 
   updateBiography(biography: string, token: string):Observable<any> {
-    return this.http.put(`${this.base_url}updateBiography`, {biography}, {headers: headers.append('Authorization', token)})
+    return this.http.put(`${this.base_route}updateBiography`, {biography}, {headers: headers.append('Authorization', token)})
   }
 
   updateEmail(email: string, token: string):Observable<any> {
-    return this.http.put(`${this.base_url}updateEmail`, {email}, {headers: headers.append('Authorization', token)})
+    return this.http.put(`${this.base_route}updateEmail`, {email}, {headers: headers.append('Authorization', token)})
   }
 
   searchUser(string: string):Observable<any> {
-    return this.http.get(`${this.base_url}search_user/${string}`, {headers})
+    return this.http.get(`${this.base_route}search_user/${string}`, {headers})
   }
 
 }
