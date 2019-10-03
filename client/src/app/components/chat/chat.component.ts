@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit {
       this.handleSockets()
       this.getMessages()
       this.getProfilePhotos(this.contacts)
-      this.scrollToBottom()
+      // this.scrollToBottom()
     })
   }
 
@@ -111,7 +111,7 @@ export class ChatComponent implements OnInit {
         this.chats = chats
         this.contacts = chats.map((chat:Chat) => chat.members.filter(member => member != username)[0])
 
-        if(username == this.loggedInUser.username && this.contacts.length != 0) 
+        if(username == this.currentUser.username && this.contacts.length != 0) 
         this.router.navigate(['/chat/',this.contacts[0]])
 
         res()

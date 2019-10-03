@@ -1,34 +1,34 @@
 <div id="edit-profile">
-  <a *ngIf="user" class="btn btn-dark" [routerLink]="['/', user?.username]">
-    Back
-  </a>
-  <a *ngIf="!user" class="btn btn-dark">
-    Back
-  </a>
-  <h1 class="title">
-    Edit your profile {{ user?.username }}
-  </h1>
-  <div class="profile_photo">
-    <img id="profile_photo_image" src="{{ user?.profile_photo }}" alt="">
+  <div class="edit-profile-container">
+    <h1 class="title">
+      Edit Profile
+    </h1>
+    
+    <div class="profile_photo">
+      <img id="profile_photo_image" src="{{ user?.profile_photo }}" alt="">
+    </div>
+
+    <form class="form">
+      <div class="">
+        <label for="change_photo" class="change-photo-label mf-btn-secondary">Change Photo</label>
+        <input type="file"  class="upload-image-button" id="change_photo" name="profile_photo" accept="image/png, image/jpeg, image/png" (change)="handleFile($event)">
+      </div>
+      <hr>
+
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="email" (change)="handleEmail()">
+        </div>
+      <hr>
+
+      <div class="form-group">
+        <label for="biography">Biography</label>
+          <textarea name="" id="" cols="30" rows="3" class="form-control" name="biography" placeholder="Write your biography" [(ngModel)]="biography" (change)="handleBiography()"></textarea>
+      </div>
+  
+      <button class="mf-btn-primary mt-4 save-btn" (click)="submitForm()">
+        Save
+      </button>
+    </form>
   </div>
-  <form class="form">
-    <div class="form-group">
-      <label for="profile_photo">Profile photo</label>
-      <input type="file"  class="form-control" name="profile_photo" accept="image/png, image/jpeg, image/png" (change)="handleFile($event)">
-    </div>
-
-    <div class="form-group">
-      <label for="biography">Biography</label>
-       <input type="text" class="form-control" name="biography" placeholder="Write your biography" [(ngModel)]="biography" (change)="handleBiography()">
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" class="form-control" name="email" [(ngModel)]="email" (change)="handleEmail()">
-    </div>
-
-    <button class="btn btn-dark" (click)="submitForm()">
-      Save
-    </button>
-  </form>
 </div>

@@ -1,14 +1,85 @@
+@import '../../../variables';
+
 #edit-profile {
   padding-top: 60px;
+  height: 100%;
 
-  .profile_photo {
-    width: 300px;
-    height: 300px;
-  }
+  color: $dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .edit-profile-container {
+    display: grid;
+    justify-content: center;
+    row-gap: 0px;
+    column-gap: 0px;
+
+    grid-template-columns: 1fr;
+
+    background: #fff;
+    width: 40vw;
+    height: 90%;
+
+    padding: 3rem 5rem;
+    margin-bottom: 20px;
+
+    border-radius: 20px;
+
+    overflow-y: auto;
+
+    .title {
+      text-align:center;
+    }
   
-  #profile_photo_image {
+    .profile_photo {
+      margin: 0;
+      padding: 0;
+
+      justify-self: center;
   
-    max-width:100%;
-    max-height:100%;
+      width: 230px;
+      height: 230px;
+
+      #profile_photo_image {
+        max-width:100%;
+        max-height:100%;
+        border-radius: 50% !important;
+      }
+    }
+    
+
+    form.form {
+      
+      text-align: center;
+      .change-photo-label {
+        border: 1px $light solid;
+      }
+
+      .upload-image-button {
+        display: none;
+      }
+
+      .form-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: start;
+
+        label {
+          font-weight: 800;
+          color: $primary;
+        }
+      }
+
+      hr {
+        background: darken($light, 5);
+      }
+
+      .save-btn {
+        padding: 0.5rem 3rem;
+      }
+    }
   }
+
 }

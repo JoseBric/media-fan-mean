@@ -19,7 +19,7 @@
       <p class="mf-card-text" *ngSwitchCase="'paragraph'" [innerHTML]="block.data.text"></p>
 
       <div class="image" *ngSwitchCase="'image'">
-        <img class="image" src="{{ post.author.profile_photo }}" alt="{{ block.data.caption}}">
+        <img class="image" src="{{ block.data.file.url }}" alt="{{ block.data.caption}}">
         <p class="mf-card-text image-caption">{{ block.data.caption }}</p>
       </div>
       
