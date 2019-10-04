@@ -7,6 +7,8 @@ import Quote from '@editorjs/quote';
 import Header from '@editorjs/header';
 import Toast from 'src/app/lib/toast';
 
+import * as config from '../../config.json';
+
 const token = localStorage.getItem('id_token')
 
 @Component({
@@ -31,8 +33,8 @@ export class PostCreatorComponent implements OnInit {
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: 'http://192.168.0.2:3000/posts/uploadImage',
-              byUrl: 'http://192.168.0.2:3000/posts/uploadImageUrl',
+              byFile: `${config.base_url}/posts/uploadImage`,
+              byUrl: `${config.base_url}/posts/uploadImageUrl`,
             },
             additionalRequestHeaders: {
               'authorization': token,
