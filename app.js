@@ -39,8 +39,6 @@ const users = require('./routes/users')
 const posts = require('./routes/posts')
 const chats = require('./routes/chats')
 
-const PORT = 3000
-
 // Static Folder
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -57,8 +55,8 @@ app.get('*', (req, res) => {
 })
 
 // Start server
-http.listen(PORT, () => {
-  console.log(`Server started in port ${PORT}`)
+http.listen(env.PORT, () => {
+  console.log(`Server started in port ${env.PORT}`)
 })
 
 const ChatManager = require('./sockets/chat')
