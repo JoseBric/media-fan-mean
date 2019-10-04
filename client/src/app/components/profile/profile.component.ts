@@ -42,17 +42,31 @@ export class ProfileComponent implements OnInit {
 
     this.loggedInUser = this.auth.getUserData()
 
-    this.getProfilesUserData(() => {
-      this.getProfilePosts(this.profileUsername)
-      if(this.loggedInUser) {
-        this.getLoggedUserFollows()
-        this.isOwnProfile()
-        this.isUserFollowingProfile()
+    this.route.params.subscribe(params => {
+      
+      const reset = this.profileUsername != params.username
+      
+      if(this.profileUsername != params.username) {
+        this.skip = 0
+        this.limit = 0
       }
-      this.loader = document.querySelector('#loader')
-      window.onscroll = this.onScroll.bind(this)
+ 
+      this.profileUsername = params.username
+
+      this.userService.getProfile(this.profileUsername).subscribe(({user}) => {
+        this.profileUser = user
+        
+        this.getProfilePosts(this.profileUsername, reset)
+        if(this.loggedInUser) {
+          this.getLoggedUserFollows()
+          this.isOwnProfile()
+          this.isUserFollowingProfile()
+        }
+        this.loader = document.querySelector('#loader')
+        window.onscroll = this.onScroll.bind(this)
+      })
+
     })
-    
   }
 
   onScroll(e) {
@@ -67,26 +81,19 @@ export class ProfileComponent implements OnInit {
     this.getProfilePosts(this.profileUser.username)
   }
 
-  getProfilesUserData(cb = () => {}) {
-    this.route.params.subscribe(params => {
-      this.profileUsername = params.username
-      this.userService.getProfile(this.profileUsername).subscribe(({user}) => {
-        this.profileUser = user
-        cb()
-      })
-
-    })
-  }
-
-  getProfilePosts(username:string) {
+  getProfilePosts(username:string, reset = false) {
     if(this.fetchingPosts) return
     this.fetchingPosts = true
-    const skip = this.profilePosts == 0 ? 0 :this.skip
+
+    const skip = this.profilePosts == 0 ? 0 : this.skip
     const limit = this.limit
+
     this.postService.profilePosts(username, skip, limit).subscribe(({posts, has_more}) => {
       this.fetchingPosts = false
       this.hasMore = has_more
-      this.profilePosts.push(...posts)
+
+      if(reset) this.profilePosts = posts
+      else this.profilePosts.push(...posts)
     })
   }
 

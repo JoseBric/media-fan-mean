@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
 // @desc   Create An User
 // @acces  Public
 router.post('/signup', async (req, res, next) => {
-  const profile_photo = 'https://media-fan.s3-us-west-1.amazonaws.com/profile_photo/default.png'
+  const profile_photo = 'https://media-fan.s3-us-west-1.amazonaws.com/profile_photo/assets/default.png'
   const {email, username, password} = req.body
   const hashedPassword = hashPassword(password)
 
