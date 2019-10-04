@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
 
   loader:HTMLElement
 
-  limit:number = 5
+  limit:number = 3
   skip:number = 0
   hasMore: boolean = true
 
@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       
       const reset = this.profileUsername != params.username
-      
+
       if(this.profileUsername != params.username) {
         this.skip = 0
         this.limit = 0
