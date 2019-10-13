@@ -22,10 +22,10 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  typingEmail(e) {
+  typingEmail() {
   }
 
-  typingUsername(e) {
+  typingUsername() {
     if(this.username.length <= 4) {
 
     }
@@ -35,11 +35,11 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  typingPassword(e) {
+  typingPassword() {
 
   }
 
-  typingRepeatedPassword(e) {
+  typingRepeatedPassword() {
 
   }
 

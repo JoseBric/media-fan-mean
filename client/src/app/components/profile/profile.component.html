@@ -34,7 +34,7 @@
           <p class="followList" (click)="followingModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowing?.length }} Following</p>
           <p class="followList" (click)="followersModal()" data-toggle="modal" data-target="#followersModal">{{ profileFollowers?.length }} Followers</p>
       </div>
-      <p id="description">{{ profileUser?.description || 'No description'}}</p>
+      <p id="description">{{ profileUser?.biography || 'No description'}}</p>
 
 
     </div>
