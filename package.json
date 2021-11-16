@@ -19,7 +19,7 @@
     "MEAN"
   ],
   "dependencies": {
-    "aws-sdk": "^2.512.0",
+    "aws-sdk": "^2.814.0",
     "bcryptjs": "*",
     "cors": "*",
     "dotenv": "^8.0.0",
